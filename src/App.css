@@ -31,3 +31,14 @@ button{
   background: white;
   padding: 12px;
 }
+.skip{
+  color: grey;
+}
+.correct-popup{
+  width: 30%;
+  padding: 24px;
+
+}
+.btn-next{
+  margin-top: 18px;
+}

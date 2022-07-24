@@ -1,5 +1,6 @@
 import React from "react";
 import QuestionCard from "./QuestionCard";
+import Popup from "./Popup";
 import { useState, useEffect } from "react";
 import UserInput from "./UserInput";
 import Loader from "./Loader";
@@ -13,7 +14,7 @@ function QuestionData() {
     if (userInput === results[0].correct_answer) {
       setIsShowPopup(true);
     } else {
-      alert('Incorrect Answer')
+      alert("Incorrect Answer");
     }
   };
 
@@ -22,16 +23,14 @@ function QuestionData() {
     let url = "https://opentdb.com/api.php?amount=1";
     let data = await fetch(url);
     let parseData = await data.json();
-    // console.log(parseData);
     setResult(parseData.results);
     setIsloading(false);
-    console.log(results);
   };
 
   const nextQuestion = () => {
     setIsShowPopup(false);
     updateQuestion();
-  }
+  };
 
   useEffect(() => {
     updateQuestion();
@@ -44,26 +43,28 @@ function QuestionData() {
       ) : (
         results.map((e, index) => {
           return (
-            <>
-              <div key={e.index}>
-                <QuestionCard category={e.category} question={e.question} />
-                <hr />
-                <UserInput
-                  handelSubmit={(...args) => checkSolution(index, ...args)}
-                />
-              </div>
-              <a onClick={nextQuestion}>Skip Question</a>
-            </>
+            <div key={e.question}>
+              <QuestionCard category={e.category} question={e.question} />
+              <hr />
+              <UserInput
+                handelSubmit={(...args) => checkSolution(index, ...args)}
+              />
+              <a className="skip" onClick={nextQuestion}>
+                Skip Question
+              </a>
+            </div>
           );
         })
       )}
       {isShowPopup ? (
-        <div className="popup-container">
-          <div className="popup-content">
-            this is popup your answer correct_answer
-            <button onClick={nextQuestion}>Next question</button>
-          </div>
-        </div>
+        <Popup className="correct-popup">
+          <b>Congratulations Correct Answer</b>
+          <br />
+          <button className="btn btn-primary btn-next" onClick={nextQuestion}>
+            {" "}
+            Next question
+          </button>
+        </Popup>
       ) : null}
     </div>
   );

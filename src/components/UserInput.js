@@ -5,14 +5,13 @@ function UserInput(props) {
   const submitHandler = (event) => {
     event.preventDefault();
     let val = event.target.userinput.value;
-    console.log(val);
     props.handelSubmit( val);
   };
   return (
-    <div container>
+    <div>
       <div className="row g-3 align-items-center">
         <div className="col-auto">
-          <label for="text" className="col-form-label">
+          <label htmlFor="text" className="col-form-label">
             Answer :
           </label>
         </div>
